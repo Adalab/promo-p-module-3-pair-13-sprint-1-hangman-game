@@ -1,14 +1,27 @@
 // SCSS
 import '../styles/App.scss';
-
 // IMG
 // import logo from '../images/logo.svg';
+import { useState } from 'react';
 
 function App() {
+ const [numberOfErrors, setNumberOfErrors] = useState(0);
+
+ const handlerClick = (ev) => {
+   ev.preventDefault();
+   setNumberOfErrors(numberOfErrors + 1);
+   console.log('holi');
+ }
+
+  ///HTML
   return (
     <div className='page'>
       <header>
         <h1 className='header__title'>Juego del ahorcado</h1>
+
+        <button className="btn" type="button" onClick={handlerClick}>Incrementar</button>
+
+
       </header>
       <main className='main'>
         <section>
@@ -51,7 +64,8 @@ function App() {
             />
           </form>
         </section>
-        <section className='dummy error-5'>
+       
+        <section className='dummy error-{`App {numberOfErrors}'>
           <span className='error-13 eye'></span>
           <span className='error-12 eye'></span>
           <span className='error-11 line'></span>
@@ -65,6 +79,8 @@ function App() {
           <span className='error-3 line'></span>
           <span className='error-2 line'></span>
           <span className='error-1 line'></span>
+
+          
         </section>
       </main>
     </div>
@@ -72,3 +88,43 @@ function App() {
 }
 
 export default App;
+
+/*
+
+1-
+Datos que guardamos en el estado
+- La letra introducida por la usuaria
+- La solución
+
+2-
+El número de errores, ¿lo tenemos que guardar en el estado para poder pintarlo, o lo podemos calcular a partir de otros datos? Calcular a partir de otro datos
+
+El número de errores, ¿cambia siempre que la jugadora añade una letra, o solo cuando añade una letra errónea? solo cuando añade una letra errónea
+
+¿Qué número de errores hay cuando el juego no ha empezado? 0 errores
+
+¿Hay un número de errores mínimo y/o máximo? es lo que ocupe el muñeco 12 errores
+
+¿Hay datos que son conjuntos de datos (como un array o un objeto) o todos los datos son simples o primitivos? si hay datos que son conjunto de datos (array con los datos de la palabra y con la letra que ya hemos usado)
+palabra que tiene que adivinar la guardamos en una variable 
+
+
+
+3- 
+Cuáles son las acciones que hay que hacer al arrancar la página
+- Reset para limpiar la página
+- Te diga la palabra/solución que no este visible, solo muestre la cantidad de letras 
+
+Cuáles son las acciones que hay que hacer después de un evento de la usuaria.
+-Usuaria escriba la letra
+-Comprobar si acierta/pierde
+
+Evento 1 gana
+- letra añadida a la solución
+- no se pinta el muñeco
+
+Evento 2 pierde
+- si falla se pinta un palito en el muñeco
+- se pinta también en la cantidad de letras falladas 
+
+*/
