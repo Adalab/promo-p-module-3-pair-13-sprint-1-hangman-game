@@ -5,23 +5,23 @@ import '../styles/App.scss';
 import { useState } from 'react';
 
 function App() {
- const [numberOfErrors, setNumberOfErrors] = useState(0);
-
- const handlerClick = (ev) => {
-   ev.preventDefault();
-   setNumberOfErrors(numberOfErrors + 1);
-   console.log('holi');
- }
+  const [numberOfErrors, setNumberOfErrors] = useState(0);
+  const handleClick = (ev) => {
+    ev.preventDefault();
+    setNumberOfErrors(numberOfErrors + 1);
+    console.log('holi');
+  };
 
   ///HTML
   return (
     <div className='page'>
       <header>
         <h1 className='header__title'>Juego del ahorcado</h1>
-
-        <button className="btn" type="button" onClick={handlerClick}>Incrementar</button>
-
-
+        {/*  Teniamos mal escrito handleClick, en unos teniamos handler y en el de
+        botón estaba bien escrito */}
+        <button className='btn' type='button' onClick={handleClick}>
+          Incrementar
+        </button>
       </header>
       <main className='main'>
         <section>
@@ -64,8 +64,8 @@ function App() {
             />
           </form>
         </section>
-       
-        <section className='dummy error-{`App {numberOfErrors}'>
+        {/* nos faltaba las comillas francesas, quitar App y meterlo todo en corchetes*/}
+        <section className={`dummy error-${numberOfErrors}`}>
           <span className='error-13 eye'></span>
           <span className='error-12 eye'></span>
           <span className='error-11 line'></span>
@@ -79,8 +79,6 @@ function App() {
           <span className='error-3 line'></span>
           <span className='error-2 line'></span>
           <span className='error-1 line'></span>
-
-          
         </section>
       </main>
     </div>
