@@ -12,13 +12,18 @@ function App() {
     console.log('holi');
   };
 
+  const [lastLetter, setLastLetter] = useState('');
+  const handleInput = (ev) => {
+    const newValue = ev.target.value;
+    setLastLetter(newValue);
+  };
+
   ///HTML
   return (
     <div className='page'>
       <header>
         <h1 className='header__title'>Juego del ahorcado</h1>
-        {/*  Teniamos mal escrito handleClick, en unos teniamos handler y en el de
-        botón estaba bien escrito */}
+
         <button className='btn' type='button' onClick={handleClick}>
           Incrementar
         </button>
@@ -51,7 +56,7 @@ function App() {
             </ul>
           </div>
           <form className='form'>
-            <label className='title' htmlFor='last-letter'>
+            <label className='title' htmlFor='lastLetter'>
               Escribe una letra:
             </label>
             <input
@@ -59,12 +64,13 @@ function App() {
               className='form__input'
               maxLength='1'
               type='text'
-              name='last-letter'
-              id='last-letter'
+              name='lastLetter'
+              id='lastLetter'
+              value={lastLetter}
+              onChange={handleInput}
             />
           </form>
         </section>
-        {/* nos faltaba las comillas francesas, quitar App y meterlo todo en corchetes*/}
         <section className={`dummy error-${numberOfErrors}`}>
           <span className='error-13 eye'></span>
           <span className='error-12 eye'></span>
