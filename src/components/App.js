@@ -5,6 +5,10 @@ import '../styles/App.scss';
 import { useState } from 'react';
 
 function App() {
+
+  const palabraAdivinar = 'pepino';
+
+  //eventos y estados
   const [numberOfErrors, setNumberOfErrors] = useState(0);
   const handleClick = (ev) => {
     ev.preventDefault();
@@ -12,11 +16,32 @@ function App() {
     console.log('holi');
   };
 
+  //form
   const [lastLetter, setLastLetter] = useState('');
+  const [solution, setSolution] = useState([]);
+  const [fail, setFail] = useState([]);
   const handleInput = (ev) => {
     const newValue = ev.target.value;
     setLastLetter(newValue);
+    //validación de letras
+    
+    if(newValue.match("[a-zA-ZñÑ]") === null) {
+      //isValid = false;
+      console.log("Letra no valida", newValue)
+    } else {
+      if(palabraAdivinar.includes(newValue)) {
+        //solution.push(newValue);
+        solution = [...solution, setSolution];
+        console.log('se mete en soluciones');
+      } else {
+        //fail.push(newValue);
+        fail = [...fail, setFail];
+        console.log('se mete en fail');
+      }
+    }
   };
+
+  
 
   ///HTML
   return (
@@ -48,11 +73,7 @@ function App() {
           <div className='error'>
             <h2 className='title'>Letras falladas:</h2>
             <ul className='letters'>
-              <li className='letter'>f</li>
-              <li className='letter'>q</li>
-              <li className='letter'>h</li>
-              <li className='letter'>p</li>
-              <li className='letter'>x</li>
+              //map pintar array de fail
             </ul>
           </div>
           <form className='form'>
