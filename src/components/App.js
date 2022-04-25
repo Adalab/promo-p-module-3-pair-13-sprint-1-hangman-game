@@ -5,9 +5,6 @@ import '../styles/App.scss';
 import { useState } from 'react';
 
 function App() {
-
-  const palabraAdivinar = 'pepino';
-
   //eventos y estados
   const [numberOfErrors, setNumberOfErrors] = useState(0);
   const handleClick = (ev) => {
@@ -20,28 +17,53 @@ function App() {
   const [lastLetter, setLastLetter] = useState('');
   const [solution, setSolution] = useState([]);
   const [fail, setFail] = useState([]);
+  const [word, setWord] = useState('katakroker');
+
   const handleInput = (ev) => {
     const newValue = ev.target.value;
     setLastLetter(newValue);
     //validación de letras
-    
-    if(newValue.match("[a-zA-ZñÑ]") === null) {
+
+    if (newValue.match('[a-zA-ZñÑ]') === null) {
       //isValid = false;
-      console.log("Letra no valida", newValue)
+      console.log('Letra no valida', newValue);
     } else {
-      if(palabraAdivinar.includes(newValue)) {
+      if (word.includes(newValue)) {
         //solution.push(newValue);
-        solution = [...solution, setSolution];
+        setSolution([...solution, newValue]);
         console.log('se mete en soluciones');
       } else {
         //fail.push(newValue);
-        fail = [...fail, setFail];
+        setFail([...fail, newValue]);
         console.log('se mete en fail');
       }
     }
   };
 
-  
+  const htmlFail = fail.map((failItem, i) => {
+    return (
+      <li className='letter' key={i}>
+        {failItem}
+      </li>
+    );
+  });
+
+  const wordLetters = word.split('');
+  const htmlSolution = wordLetters.map((solutionItem, i) => {
+    if (solution.includes(solutionItem)) {
+      return (
+        <li className='letter' key={i}>
+          {solutionItem}
+        </li>
+      );
+    } else {
+      return (
+        <li className='letter' key={i}>
+          {' '}
+        </li>
+      );
+    }
+  });
 
   ///HTML
   return (
@@ -57,24 +79,11 @@ function App() {
         <section>
           <div className='solution'>
             <h2 className='title'>Solución:</h2>
-            <ul className='letters'>
-              <li className='letter'>k</li>
-              <li className='letter'>a</li>
-              <li className='letter'></li>
-              <li className='letter'>a</li>
-              <li className='letter'>k</li>
-              <li className='letter'>r</li>
-              <li className='letter'></li>
-              <li className='letter'>k</li>
-              <li className='letter'>e</li>
-              <li className='letter'>r</li>
-            </ul>
+            <ul className='letters'>{htmlSolution}</ul>
           </div>
           <div className='error'>
             <h2 className='title'>Letras falladas:</h2>
-            <ul className='letters'>
-              //map pintar array de fail
-            </ul>
+            <ul className='letters'>{htmlFail}</ul>
           </div>
           <form className='form'>
             <label className='title' htmlFor='lastLetter'>
